@@ -4,10 +4,8 @@ document.getElementById('send-message').addEventListener('click', function() {
 
 document.getElementById('chat-input').addEventListener('keydown', function(event) {
     const inputField = document.getElementById('chat-input');
-
-    // If the Enter key is pressed (without Shift), send the message
     if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault(); // Prevent adding a new line
+        event.preventDefault(); 
         sendMessage();
     }
 });
@@ -38,7 +36,7 @@ function sendMessage() {
 
         document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
-        const keywords = ['your name', 'are you', 'who you', 'who are you', 'namamu', 'siapa kamu'];
+        const keywords = ['your name', 'are you', 'who you', 'who are you', 'namamu', 'siapa kamu', 'Leonardo', 'Leo', 'El', 'ell'];
         const shouldPretendAsLeonardo = keywords.some(keyword => messageContent.toLowerCase().includes(keyword));
 
         const apiUrl = shouldPretendAsLeonardo
