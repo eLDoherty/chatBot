@@ -40,7 +40,7 @@ function sendMessage() {
 
         sessionStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
 
-        const credkeywords = ['your name', 'are you', 'who are you', 'tell me about you','dirimu', 'namamu', 'siapa kamu', 'I talking to', 'im talking to', 'dirimu', 'dengan siapa saya berbicara', 'dengan siapa', 'siapa anda', 'leonardo', 'leo', 'ell'];
+        const credkeywords = ['your name', 'who are you', 'tell me about you','dirimu', 'namamu', 'siapa kamu', 'I talking to', 'im talking to', 'dirimu', 'dengan siapa saya berbicara', 'dengan siapa', 'siapa anda', 'leonardo', 'leo', 'ell'];
         const shouldPretendAsLeonardo = credkeywords.some(keyword => messageContent.toLowerCase().includes(keyword));
 
         let apiUrl = shouldPretendAsLeonardo
@@ -50,7 +50,7 @@ function sendMessage() {
         const conversationContext = conversationHistory.join('\n');
         apiUrl += `&conversation=${encodeURIComponent(conversationContext)}`;
 
-        const parentKeyword = ['your father', 'your mother', 'tentangmu', 'tentang anda', 'tentang kamu', 'ibumu', 'ayahmu', 'have brother', 'has sister', 'pet', 'your cat', 'punya saudara', 'saudaramu', 'lulu','punya kucing','punya peliharaan', 'kucingmu'];
+        const parentKeyword = ['your father','jenengmu', 'your mother', 'tentangmu', 'tentang anda', 'tentang kamu', 'ibumu', 'ayahmu', 'have brother', 'has sister', 'pet', 'your cat', 'punya saudara', 'saudaramu', 'lulu','punya kucing','punya peliharaan', 'kucingmu'];
         const parentCred = parentKeyword.some(keyword => messageContent.toLowerCase().includes(keyword));
 
         if (parentCred) {
@@ -85,7 +85,7 @@ function sendMessage() {
                     return `<br><br>${match}`;
                 });
 
-                botMessageText.innerHTML = botResponse;
+                botMessageText.innerHTML = botResponse.replaceAll('OpenAI', 'Leonardo Doherty');
 
                 botMessageContainer.appendChild(botMessageText);
                 document.getElementById('chat-messages').appendChild(botMessageContainer);
