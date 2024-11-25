@@ -119,10 +119,11 @@ body {
     background-color: #007BFF;
     color: white;
     border: none;
-    padding: 12px 18px;
-    border-radius: 20px;
+    padding: 16px 18px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
+    width: 25%;
     transition: background-color 0.3s ease;
 }
 
@@ -159,8 +160,8 @@ body {
     }
 
     #send-message {
-        padding: 10px 14px;
-        font-size: 12px;
+        padding: 16px 14px;
+        font-size: 16px;
     }
 }
 
