@@ -31,6 +31,13 @@ function sendMessage() {
 
         document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
+        const typingIndicator = document.createElement('div');
+        typingIndicator.classList.add('message', 'from-bot', 'typing');
+        typingIndicator.innerHTML = '<span class="typing-indicator">Leonardo is typing...</span>';
+        document.getElementById('chat-messages').appendChild(typingIndicator);
+
+        document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+
         const keywords = ['your name', 'are you', 'who are you', 'namamu', 'siapa kamu'];
         const shouldPretendAsLeonardo = keywords.some(keyword => messageContent.toLowerCase().includes(keyword));
 
@@ -41,6 +48,8 @@ function sendMessage() {
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
+                typingIndicator.remove();
+
                 const botMessageContainer = document.createElement('div');
                 botMessageContainer.classList.add('message', 'from-bot');
                 const botMessageText = document.createElement('span');
@@ -54,6 +63,7 @@ function sendMessage() {
             })
             .catch(error => {
                 console.error('Error fetching from API:', error);
+                typingIndicator.remove(); // Remove typing indicator on error
             });
     }
 }
