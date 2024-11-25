@@ -16,8 +16,14 @@ document.getElementById('send-message').addEventListener('click', function() {
 
         document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
-        // Send the message from the textarea to the API
-        fetch(`https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}&prompt=Pretend%20to%20be%20Leonardo`)
+        const keywords = ['your name', 'are you', 'who are you', 'namamu', 'siapa kamu'];
+        const shouldPretendAsLeonardo = keywords.some(keyword => messageContent.toLowerCase().includes(keyword));
+
+        const apiUrl = shouldPretendAsLeonardo
+            ? `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}&prompt=Pretend%20to%20be%20Leonardo`
+            : `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}`;
+
+        fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
                 const botMessageContainer = document.createElement('div');
