@@ -1,4 +1,19 @@
 document.getElementById('send-message').addEventListener('click', function() {
+    sendMessage();
+});
+
+document.getElementById('chat-input').addEventListener('keydown', function(event) {
+    const inputField = document.getElementById('chat-input');
+
+    // If the Enter key is pressed (without Shift), send the message
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault(); // Prevent adding a new line
+        sendMessage();
+    }
+});
+
+// Function to send message
+function sendMessage() {
     const inputField = document.getElementById('chat-input');
     const messageContent = inputField.value.trim();
 
@@ -41,4 +56,4 @@ document.getElementById('send-message').addEventListener('click', function() {
                 console.error('Error fetching from API:', error);
             });
     }
-});
+}
