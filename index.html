@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Chit Chat</title>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Leonardo's Bot</h2>
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+            <div class="message from-user">
+                <span class="message-content">Hello, how are you?</span>
+            </div>
+            <div class="message from-bot">
+                <span class="message-content">I'm good, thanks for asking! What can I help you?</span>
+            </div>
+        </div>
+        
+        <div class="chat-input-area">
+            <textarea id="chat-input" placeholder="Type your message..." rows="2"></textarea>
+            <button id="send-message">Send</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
