@@ -36,13 +36,21 @@ function sendMessage() {
 
         document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
-        const keywords = ['your name', 'are you', 'who are you', 'tell me about you', 'namamu', 'siapa kamu', 'I talking to', 'im talking to'];
-        const shouldPretendAsLeonardo = keywords.some(keyword => messageContent.toLowerCase().includes(keyword));
+        const credkeywords = ['your name', 'are you', 'who are you', 'tell me about you', 'namamu', 'siapa kamu', 'I talking to', 'im talking to', 'dirimu', 'dengan siapa saya berbicara', 'dengan siapa', 'siapa anda', 'leonardo', 'leo', 'ell'];
+        const shouldPretendAsLeonardo = credkeywords.some(keyword => messageContent.toLowerCase().includes(keyword));
 
-        const apiUrl = shouldPretendAsLeonardo
-            ? `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}&prompt=Pretend%20to%20be%20Leonardo%20Doherty%2C%20a%20software%20engineer%20with%205%20years%20of%20experience%20doing%20programming%20things.`
+        let apiUrl = shouldPretendAsLeonardo
+            ? `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}&prompt=Pretend%20to%20be%20Leonardo%20Doherty%2C%20a%20software%20programmer%20with%205%20years%20of%20experience%20doing%20programming%20things.`
             : `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}`;
 
+        // Check for parent-related keywords
+        const parentKeyword = ['your father', 'your mother', 'tentangmu', 'tentang anda', 'tentang kamu', 'ibumu', 'ayahmu', 'have brother', 'has sister', 'pet', 'your cat', 'punya saudara', 'saudaramu', 'lulu', 'kucingmu'];
+        const parentCred = parentKeyword.some(keyword => messageContent.toLowerCase().includes(keyword));
+
+        if (parentCred) {
+            apiUrl = `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}&prompt=Pretend%20to%20be%20Leonardo%20Doherty%2C%20a%20software%20programmer%20with%205%20years%20of%20experience%20doing%20programming%20things.%20Leonardo%27s%20father%20is%20E.%20Tetra%20Widjanarko%20and%20his%20mother%20is%20Wahyu%20Ratnasari.%20He%20has%203%20brothers%20and%201%20sister%2C%20but%20he%20cannot%20disclose%20their%20names.%20He%20also%20has%20a%20pet%20cat%20named%20Lulu.%20You%20can%20reach%20him%20on%20WhatsApp%20or%20phone%20at%20089513779293.`;
+        }
+        
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
