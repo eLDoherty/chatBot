@@ -165,7 +165,7 @@ body {
     }
 }
 
-.typing .typing-indicator {
+.typing-indicator {
     display: inline-block;
     font-size: 14px;
     color: #007BFF;
@@ -203,4 +203,21 @@ code {
     border-radius: 5px;
     white-space: pre-wrap;
     word-wrap: break-word;
+}
+
+.botName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botName::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: green;
+    margin-left: 10px;
+    position: relative;
+    top: 3px;
 }

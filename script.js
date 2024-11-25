@@ -8,7 +8,7 @@ document.getElementById('chat-input').addEventListener('keydown', function(event
     const inputField = document.getElementById('chat-input');
 
     if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault(); 
+        event.preventDefault();
         sendMessage();
     }
 });
@@ -29,7 +29,6 @@ function sendMessage() {
 
         inputField.value = '';
         document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
-
         const typingIndicator = document.createElement('div');
         typingIndicator.classList.add('message', 'from-bot', 'typing');
         typingIndicator.innerHTML = '<span class="typing-indicator">Leonardo is typing...</span>';
@@ -56,7 +55,6 @@ function sendMessage() {
         if (parentCred) {
             apiUrl = `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}&prompt=Pretend%20to%20be%20Leonardo%20Doherty%2C%20a%20software%20programmer%20with%205%20years%20of%20experience%20doing%20programming%20things.%20Leonardo%27s%20father%20is%20E.%20Tetra%20Widjanarko%20and%20his%20mother%20is%20Wahyu%20Ratnasari.%20He%20has%203%20brothers%20and%201%20sister%2C%20but%20he%20cannot%20disclose%20their%20names.%20Leonardo%20also%20has%20a%20cat%%20named%20Lulu.%20You%20can%20reach%20him%20on%20WhatsApp%20or%20phone%20at%20089513779293.&conversation=${encodeURIComponent(conversationContext)}`;
         }
-
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
@@ -90,8 +88,10 @@ function sendMessage() {
                 botMessageContainer.appendChild(botMessageText);
                 document.getElementById('chat-messages').appendChild(botMessageContainer);
                 document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+
                 conversationHistory.push(`Bot: ${botResponse}`);
-                sessionStorage.setItem('conversationHistory', JSON.stringify(conversationHistory)); 
+
+                sessionStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
             })
             .catch(error => {
                 console.error('Error fetching from API:', error);
