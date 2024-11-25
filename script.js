@@ -38,11 +38,11 @@ function sendMessage() {
 
         document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
-        const keywords = ['your name', 'are you', 'who are you', 'namamu', 'siapa kamu'];
+        const keywords = ['your name', 'are you', 'who you', 'who are you', 'namamu', 'siapa kamu'];
         const shouldPretendAsLeonardo = keywords.some(keyword => messageContent.toLowerCase().includes(keyword));
 
         const apiUrl = shouldPretendAsLeonardo
-            ? `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}&prompt=Pretend%20to%20be%20Leonardo`
+            ? `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}&prompt=Pretend%20to%20be%20Leonardo%20Doherty%2C%20a%20software%20engineer%20with%205%20years%20of%20experience%20doing%20programming%20things.`
             : `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}`;
 
         fetch(apiUrl)
