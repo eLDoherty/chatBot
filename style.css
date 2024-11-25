@@ -165,7 +165,7 @@ body {
     }
 }
 
-.typing-indicator {
+span.typing-indicator {
     display: inline-block;
     font-size: 14px;
     color: #007BFF;
@@ -216,7 +216,7 @@ code {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: green;
+    background-color: #4dbd4d;
     margin-left: 10px;
     position: relative;
     top: 3px;
