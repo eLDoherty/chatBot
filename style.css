@@ -9,9 +9,9 @@ body {
     background-color: #f4f4f4;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align to the top for scrolling */
-    height: 100%; /* Allow full height of the page */
-    overflow: auto; /* Enable scrolling */
+    align-items: flex-start;
+    height: 100%;
+    overflow: auto;
     margin: 0;
 }
 
@@ -22,9 +22,10 @@ body {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    max-height: 600px; /* Max height for desktop */
-    height: 100%; /* Allow it to stretch */
-    overflow: hidden; /* Prevent overflowing */
+    max-height: 600px;
+    min-height: 500px;
+    height: 100%;
+    overflow: hidden;
 }
 
 .chat-header {
@@ -49,7 +50,7 @@ body {
     margin: 10px;
     position: relative;
     font-size: 14px;
-    max-height: calc(100% - 160px); /* Allow scrollable area for chat messages */
+    max-height: calc(100% - 160px);
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -129,17 +130,16 @@ body {
     background-color: #0056b3;
 }
 
-/* Responsive adjustments */
 @media (max-width: 420px) {
     body {
         justify-content: flex-start;
-        height: 100%; /* Ensure body takes full height */
-        overflow: auto; /* Enable scrolling */
+        height: 100%;
+        overflow: auto;
     }
 
     .chat-container {
         width: 100%;
-        height: 100vh; /* Make the chat container take full height on mobile */
+        height: 90vh;
         max-height: none;
         border-radius: 0;
         box-shadow: none;
@@ -164,7 +164,6 @@ body {
     }
 }
 
-/* Typing animation */
 .typing .typing-indicator {
     display: inline-block;
     font-size: 14px;
@@ -173,7 +172,6 @@ body {
     animation: typingAnimation 1.5s steps(5, end) infinite;
 }
 
-/* Keyframes for the typing animation */
 @keyframes typingAnimation {
     0% {
         content: '';
