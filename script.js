@@ -50,7 +50,7 @@ function sendMessage() {
         const conversationContext = conversationHistory.join('\n');
         apiUrl += `&conversation=${encodeURIComponent(conversationContext)}`;
 
-        const parentKeyword = ['your father', 'your mother', 'tentangmu', 'tentang anda', 'tentang kamu', 'ibumu', 'ayahmu', 'have brother', 'has sister', 'pet', 'your cat', 'punya saudara', 'saudaramu', 'lulu','punya kucing', 'kucingmu'];
+        const parentKeyword = ['your father', 'your mother', 'tentangmu', 'tentang anda', 'tentang kamu', 'ibumu', 'ayahmu', 'have brother', 'has sister', 'pet', 'your cat', 'punya saudara', 'saudaramu', 'lulu','punya kucing','punya peliharaan', 'kucingmu'];
         const parentCred = parentKeyword.some(keyword => messageContent.toLowerCase().includes(keyword));
 
         if (parentCred) {
