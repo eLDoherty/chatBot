@@ -102,6 +102,7 @@ function sendMessage() {
             .catch(error => {
                 console.error('Error fetching from API:', error);
                 typingIndicator.remove();
+                alert("Hey, I can't reply you here right now, can you send me email on eleonardodev@gmail.com instead?")
             });
     }
 }
