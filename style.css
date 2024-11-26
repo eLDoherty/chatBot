@@ -93,13 +93,14 @@ body {
     padding: 15px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     background-color: #f4f4f4;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
 }
 
 #chat-input {
-    width: 80%;
+    width: 73%;
     padding: 12px;
     border-radius: 20px;
     border: 1px solid #ccc;

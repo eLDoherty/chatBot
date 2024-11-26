@@ -85,6 +85,7 @@ function sendMessage() {
                 botResponse = botResponse.replace(/```(.*?)```/gs, function(match, code) {
                     return `<code>${code}</code>`;
                 });
+                
                 botResponse = botResponse.replace(/(\d+\.)/g, function(match) {
                     return `<br><br>${match}`;
                 });
@@ -118,7 +119,7 @@ function formatBotResponse(response) {
         }
         return sentence + '. ';
     }).join('');
-    return formattedResponse;
+    return response;
 }
 
 
