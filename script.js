@@ -1,4 +1,4 @@
-let conversationHistory = JSON.parse(sessionStorage.getItem('conversationHistory')) || [];
+let conversationHistory = JSON.parse(localStorage.getItem('conversationHistory')) || [];
 
 document.getElementById('send-message').addEventListener('click', function() {
     sendMessage();
@@ -29,6 +29,7 @@ function sendMessage() {
 
         inputField.value = '';
         document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+
         const typingIndicator = document.createElement('div');
         typingIndicator.classList.add('message', 'from-bot', 'typing');
         typingIndicator.innerHTML = '<span class="typing-indicator">Leonardo is typing...</span>';
@@ -36,25 +37,25 @@ function sendMessage() {
         document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
         conversationHistory.push(`User: ${messageContent}`);
+        localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
 
-        sessionStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
-
-        const credkeywords = ['your name', 'who are you', 'tell me about you','dirimu', 'namamu', 'siapa kamu', 'I talking to', 'im talking to', 'dirimu', 'dengan siapa saya berbicara', 'dengan siapa', 'siapa anda', 'leonardo', 'leo', 'ell', 'doherty'];
+        const credkeywords = ['your name', 'who are you', 'tell me about you', 'dirimu', 'namamu', 'siapa kamu', 'I talking to', 'im talking to', 'dirimu', 'dengan siapa saya berbicara', 'dengan siapa', 'siapa anda', 'leonardo', 'leo', 'ell', 'doherty'];
         const shouldPretendAsLeonardo = credkeywords.some(keyword => messageContent.toLowerCase().includes(keyword));
 
-        let apiUrl = shouldPretendAsLeonardo
-            ? `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}&prompt=Pretend%20to%20be%20Leonardo%20Doherty%2C%20a%20software%20programmer%20with%205%20years%20of%20experience%20doing%20programming%20things.`
-            : `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}`;
-
-        const conversationContext = conversationHistory.join('\n');
-        apiUrl += `&conversation=${encodeURIComponent(conversationContext)}`;
-
-        const parentKeyword = ['your father','jenengmu', 'your mother', 'tentangmu', 'tentang anda', 'tentang kamu', 'ibumu', 'ayahmu', 'have brother', 'has sister', 'pet', 'your cat', 'punya saudara', 'saudaramu', 'lulu','punya kucing','punya peliharaan', 'kucingmu'];
+        const parentKeyword = ['your father', 'jenengmu', 'your mother', 'tentangmu', 'tentang anda', 'tentang kamu', 'ibumu', 'ayahmu', 'have brother', 'has sister', 'pet', 'your cat', 'punya saudara', 'saudaramu', 'lulu', 'punya kucing', 'punya peliharaan', 'kucingmu'];
         const parentCred = parentKeyword.some(keyword => messageContent.toLowerCase().includes(keyword));
 
-        if (parentCred) {
-            apiUrl = `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}&prompt=Pretend%20to%20be%20Leonardo%20Doherty%2C%20a%20software%20programmer%20with%205%20years%20of%20experience%20doing%20programming%20things.%20Leonardo%27s%20father%20is%20E.%20Tetra%20Widjanarko%20and%20his%20mother%20is%20Wahyu%20Ratnasari.%20He%20has%203%20brothers%20and%201%20sister%2C%20but%20he%20cannot%20disclose%20their%20names.%20Leonardo%20also%20has%20a%20cat%%20named%20Lulu.%20You%20can%20reach%20him%20on%20WhatsApp%20or%20phone%20at%20089513779293.&conversation=${encodeURIComponent(conversationContext)}`;
+        let prompt = conversationHistory.join('\n');
+        prompt += `\nUser: ${messageContent}`;
+
+        if (shouldPretendAsLeonardo) {
+            prompt = `Pretend to be Leonardo Doherty, a software programmer with 5 years of experience. ${prompt}`;
+        } else if (parentCred) {
+            prompt = `Pretend to be Leonardo Doherty, a software programmer with 5 years of experience. Leonardo's father is E. Tetra Widjanarko, and his mother is Wahyu Ratnasari. He has 3 brothers and 1 sister, but he cannot disclose their names. Leonardo also has a cat named Lulu. ${prompt}`;
         }
+
+        const apiUrl = `https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(messageContent)}&prompt=${encodeURIComponent(prompt)}`;
+
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
@@ -70,6 +71,11 @@ function sendMessage() {
                 botResponse = botResponse.replace(/\*\*(.*?)\*\*/g, function(match, boldText) {
                     return `<strong>${boldText}</strong>`;
                 });
+
+                botResponse = botResponse.replace(/###(.*?):/g, function(match, headerText) {
+                    return `<h3>${headerText}</h3>`;
+                });
+                
                 botResponse = botResponse.replace(/__(.*?)__/g, function(match, highlightText) {
                     return `<highlight>${highlightText}</highlight>`;
                 });
@@ -83,15 +89,14 @@ function sendMessage() {
                     return `<br><br>${match}`;
                 });
 
-                botMessageText.innerHTML = formatBotResponse(botResponse.replaceAll('OpenAI', 'Leonardo Doherty'));
+                botMessageText.innerHTML = formatBotResponse(botResponse.replaceAll('OpenAI', 'Leonardo Doherty').replaceAll('Sebagai AI', 'Sebagai AI Leonardo'));
 
                 botMessageContainer.appendChild(botMessageText);
                 document.getElementById('chat-messages').appendChild(botMessageContainer);
                 document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
-                conversationHistory.push(`Bot: ${botResponse}`);
-
-                sessionStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
+                conversationHistory.push(`Your response: ${botResponse}`);
+                localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
             })
             .catch(error => {
                 console.error('Error fetching from API:', error);
@@ -101,32 +106,22 @@ function sendMessage() {
 }
 
 window.addEventListener('beforeunload', function() {
-    sessionStorage.removeItem('conversationHistory');
+    localStorage.removeItem('conversationHistory');
 });
 
-
 function formatBotResponse(response) {
-    let formattedResponse = '';
-    let periodCount = 0; 
+    let sentences = response.split(/(?<!\d\s?)\.\s/);
 
-    for (let i = 0; i < response.length; i++) {
-        formattedResponse += response[i];
-
-        if (response[i] === '.') {
-            if (i > 0 && !isNaN(response[i - 1]) && response[i + 1] === ' ') {
-                continue;
-            }
-
-            periodCount++; 
-            if (periodCount === 3) {
-                formattedResponse += "<br><br>";
-                periodCount = 0;
-            }
+    let formattedResponse = sentences.map((sentence, index) => {
+        if ((index + 1) % 3 === 0) {
+            return sentence + '.<br><br>';
         }
-    }
-
+        return sentence + '. ';
+    }).join('');
     return formattedResponse;
 }
+
+
 
 
 

@@ -221,3 +221,11 @@ code {
     position: relative;
     top: 3px;
 }
+
+.message-content h3 {
+    margin: 1rem 0;
+}
+
+strong {
+    margin-top: 1rem;
+}
