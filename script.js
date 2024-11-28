@@ -1,3 +1,8 @@
+/*
+* Author  : Leonardo Doherty
+* Created : 11/20/2024
+*/
+
 let conversationHistory = JSON.parse(localStorage.getItem('conversationHistory')) || [];
 
 document.getElementById('send-message').addEventListener('click', function() {
