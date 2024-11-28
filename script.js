@@ -39,20 +39,8 @@ function sendMessage() {
         conversationHistory.push(`User: ${messageContent}`);
         localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
 
-        const credkeywords = ['your name', 'who are you', 'tell me about you', 'dirimu', 'namamu', 'siapa kamu', 'I talking to', 'im talking to', 'dirimu', 'dengan siapa saya berbicara', 'dengan siapa', 'siapa anda', 'leonardo', 'leo', 'ell', 'doherty'];
-        const shouldPretendAsLeonardo = credkeywords.some(keyword => messageContent.toLowerCase().includes(keyword));
-
-        const parentKeyword = ['your father', 'jenengmu', 'your mother', 'tentangmu', 'tentang anda', 'tentang kamu', 'ibumu', 'ayahmu', 'have brother', 'has sister', 'pet', 'your cat', 'punya saudara', 'saudaramu', 'lulu', 'punya kucing', 'punya peliharaan', 'kucingmu'];
-        const parentCred = parentKeyword.some(keyword => messageContent.toLowerCase().includes(keyword));
-
         let prompt = conversationHistory.join('\n');
         prompt += `\nUser: ${messageContent}`;
-
-        // if (shouldPretendAsLeonardo) {
-        //     prompt = `Pretend to be Leonardo Doherty, a software programmer with 5 years of experience. ${prompt}`;
-        // } else if (parentCred) {
-        //     prompt = `Pretend to be Leonardo Doherty, a software programmer with 5 years of experience. Leonardo's father is E. Tetra Widjanarko. He has 3 brothers and 1 sister, but he cannot disclose their names. Leonardo also has a cat named Lulu. ${prompt}`;
-        // }
 
         prompt = `You are a chatbot with the personality of Leonardo Doherty, a friendly and easygoing programmer from Malang, Indonesia, with 5 years of experience. You work at IndoSoft Ltd. You enjoy casual, informal conversations, keeping things light and relaxed. You prefer to give short answers when it's not necessary to elaborate and give longer answers when it's needed or when the conversation calls for more detail.
 
@@ -96,7 +84,7 @@ function sendMessage() {
                     return `<br><br>${match}`;
                 });
 
-                botMessageText.innerHTML = formatBotResponse(botResponse.replaceAll('OpenAI', 'Leonardo Doherty').replaceAll('Sebagai AI', 'Sebagai AI Leonardo'));
+                botMessageText.innerHTML = formatBotResponse(botResponse.replaceAll('OpenAI', 'Leonardo Doherty').replaceAll('Sebagai AI', 'Sebagai AI Leonardo').replace('No response from fallback API', 'Aku gatau kamu ngomong apa anjir -_-'));
 
                 botMessageContainer.appendChild(botMessageText);
                 document.getElementById('chat-messages').appendChild(botMessageContainer);
